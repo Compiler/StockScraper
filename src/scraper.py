@@ -31,8 +31,39 @@ def parse_content(html_data):
     table_row = "table-dark-row"
     match = dom_struct.find_all("table", {"class":table_class})
     print(match[0].text)
+    brute_force_parse_data(match[0].text)
 
+def brute_force_parse_data(data):
+    titles = ["Index", "P/E", "EPS (ttm)", "Insider Own", "Shs Outstand", "Perf Week",
+                "Market Cap", "Forward P/E", "EPS next Y", "Insider Trans", "Shs Float", "Perf Month",
+                "Income", "PEG", "EPS next Q", "Inst Own", "Short Float", "Perf Quarter",
+                "Sales", "P/S", "EPS this Y", "Inst Trans", "Short Ratio", "Perf Half Y",
+                "Book/sh", "P/B", "EPS next Y", "ROA", "Target Price", "Perf Year", 
+                "Cash/sh", "P/C", "EPS next 5Y", "ROE", "52W Range", "Perf YTD", 
+                "Dividend", "P/FCF", "EPS past 5Y", "ROI", "52W High", "Beta",
+                "Dividend %", "Quick Ratio", "Sales Past 5Y", "Gross Margin", "52W Low", "ATR",
+                "Employees", "Current Ratio", "Sales Q/Q", "Oper. Margin", "RSI (14)", "Volatility",
+                "Optionable", "Debt/Eq", "EPS Q/Q", "Profit Margin", "Rel Volume", "Prev Close",
+                "Shortable", "LT Debt/Eq", "Earnings", "Payout", "Avg Volume", "Price",
+                "Recom", "SMA20", "SMA50", "SMA200", "Volume", "Change"]
 
+    #handles the n-1 cases
+    print("================================================")
+    for cur_pos in range(0, len(titles)):
+        next_pos = cur_pos + 1
+        if(next_pos >= len(titles)): break
+        start_pos = data.find(titles[cur_pos])
+        end_pos = data.find(titles[next_pos])
+        print(titles[cur_pos])
+        offset = len(titles[cur_pos])
+        print(data[start_pos + offset:end_pos])
+
+    #handle last case
+    cur_pos = len(titles)-1
+    start_pos = data.find(titles[cur_pos])
+    print(titles[cur_pos])
+    offset = len(titles[cur_pos])
+    print(data[start_pos + offset:])
 def scrape_url(url):
     logging.critical("Scraping '%s'", url)
     data = validate_url(url)#retrieve html data
