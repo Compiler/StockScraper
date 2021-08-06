@@ -48,7 +48,7 @@ def brute_force_parse_data(data, ticker):
                 "Recom", "SMA20", "SMA50", "SMA200", "Volume", "Change"]
 
     #handles the n-1 cases
-    print("================================================")
+    print("================================================\n", ticker)
     m_dict = {
         "ticker": ticker
     }
